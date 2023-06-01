@@ -1,3 +1,5 @@
+Status: Completed
+
 _/Basic Function                
 _/Login
 _/Implement add user func
@@ -6,8 +8,7 @@ _/Link succesfully to a git repo and github
 _/Actually commit regularly to repo
 _/Edit element function
 _/UI
--Better auth
--Use modals for better login window
+
 
 Limitations
 -> One list per user

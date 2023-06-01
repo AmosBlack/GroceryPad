@@ -24,10 +24,10 @@ const loginTitle = document.getElementById("sign-title")
 
 loginToggle.addEventListener("change",function(){
     if(loginToggle.checked){
-        loginTitle.innerHTML = "Login"
+        loginTitle.innerHTML = "Signin"
     }
     else{
-        loginTitle.innerHTML = "SignUp"
+        loginTitle.innerHTML = "Signup"
     }
 })
 
