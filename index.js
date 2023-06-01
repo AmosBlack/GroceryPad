@@ -5,15 +5,19 @@ const appSettings = {
     databaseURL: "https://scrimfirebase-default-rtdb.asia-southeast1.firebasedatabase.app/"
 }   
 
+//db
 const app = initializeApp(appSettings)
 const database = getDatabase(app)
-let shoppingListInDB 
+let shoppingListInDB    
+let shoppers = ref(database,`users`)
 
+//elements
 const inputFieldEl = document.getElementById("input-field")
 const addButtonEl = document.getElementById("add-button")
 const shoppingListEl = document.getElementById("shopping-list")
 const loginButtonEl = document.getElementById("login-button")
 const userInputEl = document.getElementById("input-user")
+const loginToggle = document.getElementById("toggle")
 
 loginButtonEl.addEventListener("click", function(){
     //login system input, new db location   
@@ -21,12 +25,22 @@ loginButtonEl.addEventListener("click", function(){
     let shopperInDB = ref(database,`user/${userValue}`)
     onValue(shopperInDB,function(snapshot){
         if(snapshot.exists()){
-            // if db loc exists, then set as usable db
+            shoppingListInDB = ref(database,`user/${userValue}`)
             
         }
         else{
             shoppingListEl.innerHTML = "No items here... yet"
+            if(!loginToggle.checked){
+                shoppingListInDB = ref(database,`user/${userValue}`)
+            }
+            else{
+                alert("Your account doesnt exist")
+            }
         }
+
+        //signin/signup function
+        shoppingListInDB = ref(database,`user/${userValue}`)
+        
         shoppingListInDB = ref(database,`user/${userValue}`)
         let itemsArray = Object.entries(snapshot.val())  
 
@@ -59,7 +73,7 @@ onValue(shoppingListInDB, function(snapshot) {
             appendItemToShoppingListEl(currentItem)
         }    
     } else {
-        shoppingListEl.innerHTML = "No items here... yet"
+        shoppingListEl.innerHTML = "Logged In... but no items...yet"
     }
 })
 
@@ -88,4 +102,9 @@ function appendItemToShoppingListEl(item,user) {
     })
     //append created element to shoppinglist ul
     shoppingListEl.append(newEl)
+}
+
+function checkLoginSignup(logToggle){
+    // true means signin false means signup
+    return logToggle.checked
 }

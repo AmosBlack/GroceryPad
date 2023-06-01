@@ -1,0 +1,61 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .toggle-switch {
+        margin:0px auto;
+        position: relative;
+        display: flex;
+        width: 100px;
+        height: 34px;
+        }
+
+        .switch {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        border-radius: 34px;
+        cursor: pointer;
+        transition: background-color 0.1s;
+        }
+
+        .switch::after {
+        content: "";
+        position: absolute;
+        width: 26px;
+        height: 26px;
+        background-color: white;
+        border-radius: 50%;
+        top: 4px;
+        left: 4px;
+        transition: transform 0.1s;
+        }
+
+        .checkbox {
+        display: none;
+        }
+
+        .checkbox:checked + .switch {
+        background-color: #2196F3;
+        }
+
+        .checkbox:checked + .switch::after {
+        transform: translateX(66px);
+        }
+
+    </style>
+</head>
+<body>
+    <div class="toggle-switch">
+        <input type="checkbox" id="toggle" class="checkbox">
+        <label for="toggle" class="switch"></label>
+      </div>
+      
+</body>
+</html>
