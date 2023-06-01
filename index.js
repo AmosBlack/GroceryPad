@@ -39,9 +39,7 @@ loginButtonEl.addEventListener("click", function(){
         }
 
         //signin/signup function
-        shoppingListInDB = ref(database,`user/${userValue}`)
         
-        shoppingListInDB = ref(database,`user/${userValue}`)
         let itemsArray = Object.entries(snapshot.val())  
 
         clearShoppingListEl()      

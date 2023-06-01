@@ -1,12 +1,12 @@
-/Basic Function                
-/Login
-/Implement add user func
--Toggle for signin/signup to avoid accidental signups
+_/Basic Function                
+_/Login
+_/Implement add user func
+_/Toggle for signin/signup to avoid accidental signups
+_/Link succesfully to a git repo and github
+_/Actually commit regularly to repo
 -Edit element function
-/-UI
+-UI
 -Better auth
 
-Bugs
--> If list ends, user deleted
--> Accidental sign-ups
--> Separate users/list-ids ???!!
+Limitations
+-> One list per user
