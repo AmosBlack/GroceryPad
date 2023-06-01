@@ -23,6 +23,7 @@ loginButtonEl.addEventListener("click", function(){
     //login system input, new db location   
     let userValue = userInputEl.value
     let shopperInDB = ref(database,`user/${userValue}`)
+    clearInputFieldEl()
     onValue(shopperInDB,function(snapshot){
         if(snapshot.exists()){
             shoppingListInDB = ref(database,`user/${userValue}`)
@@ -39,7 +40,6 @@ loginButtonEl.addEventListener("click", function(){
         }
 
         //signin/signup function
-        
         let itemsArray = Object.entries(snapshot.val())  
 
         clearShoppingListEl()      
@@ -54,7 +54,9 @@ loginButtonEl.addEventListener("click", function(){
 addButtonEl.addEventListener("click", function() {
     //push input item to db
     let inputValue = inputFieldEl.value    
-    push(shoppingListInDB, inputValue)    
+    if(inputValue != ""){
+        push(shoppingListInDB, inputValue)    
+    }
     clearInputFieldEl()
     //seems to work
 })
@@ -85,9 +87,9 @@ function appendItemToShoppingListEl(item,user) {
     newEl.addEventListener("click", function(){
         //change it from remove+add new el to updating in database with ID
         inputFieldEl.value = itemValue
-        newEl.style.backgroundColor = "#f3c872"
         addButtonEl.addEventListener("click",function(){
         removeListEl(user,itemID)
+
         })
 
     })
