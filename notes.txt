@@ -1,0 +1,12 @@
+/Basic Function                
+/Login
+/Implement add user func
+-Toggle for signin/signup to avoid accidental signups
+-Edit element function
+-UI
+-Better auth
+
+Bugs
+-> If list ends, user deleted
+-> Accidental sign-ups
+-> Separate users/list-ids ???!!
