@@ -9,5 +9,5 @@
 * ## List Editing with Add/Delete
 
 # [Hosted on Netlify](https://grocerypad1234.netlify.app/)
-* ## It uses Firebase's Realtime Database to store each user's shopping lists. These can only be accessed when the correct username is provided.
-* ##  One can signin/signup through their username to access their list.
+*  It uses Firebase's Realtime Database to store each user's shopping lists. These can only be accessed when the correct username is provided.
+*   One can signin/signup through their username to access their list.
