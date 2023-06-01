@@ -6,8 +6,9 @@
 ## Salient Features
 
 * Signin/Signup Function with Username
-* List Editing with Add/Delete
+* List Editing with Add, Update and Delete Functionality
 
 ## [Hosted on Netlify](https://grocerypad1234.netlify.app/)
 *  It uses Firebase's Realtime Database to store each user's shopping lists. These can only be accessed when the correct username is provided.
 *   One can signin/signup through their username to access their list.
+*   On clicking a shopping list element, it's editable view will open in input-tab and you can change the element

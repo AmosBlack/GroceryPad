@@ -78,10 +78,21 @@ function appendItemToShoppingListEl(item,user) {
     newEl.textContent = itemValue
     
     //onclick remove item from shopping list
-    newEl.addEventListener("click", function() {
-        let exactLocationOfItemInDB = ref(database, `user/${user}/${itemID}`)        
-        remove(exactLocationOfItemInDB)
+    newEl.addEventListener("dblclick", function() {
+        removeListEl(user,itemID)
+
     })
+    newEl.addEventListener("click", function(){
+        //change it from remove+add new el to updating in database with ID
+        inputFieldEl.value = itemValue
+        newEl.style.backgroundColor = "#f3c872"
+        addButtonEl.addEventListener("click",function(){
+        removeListEl(user,itemID)
+        })
+
+    })
+
+
     //append created element to shoppinglist ul
     shoppingListEl.append(newEl)
 }
@@ -89,4 +100,9 @@ function appendItemToShoppingListEl(item,user) {
 function checkLoginSignup(logToggle){
     // true means signin false means signup
     return logToggle.checked
+}
+
+function removeListEl(user,id){
+    let exactLocationOfItemInDB = ref(database, `user/${user}/${id}`)        
+    remove(exactLocationOfItemInDB)
 }

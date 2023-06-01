@@ -4,9 +4,10 @@ _/Implement add user func
 _/Toggle for signin/signup to avoid accidental signups
 _/Link succesfully to a git repo and github
 _/Actually commit regularly to repo
--Edit element function
--UI
+_/Edit element function
+_/UI
 -Better auth
+-Use modals for better login window
 
 Limitations
 -> One list per user
