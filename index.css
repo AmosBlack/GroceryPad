@@ -109,7 +109,8 @@ h2{
 
 /* toggle switch css */
 .toggle-switch {
-    margin:0px auto;
+    margin:10px auto;
+    margin-bottom: 0;
     position: relative;
     display: flex;
     width: 100px;
@@ -145,9 +146,18 @@ h2{
     }
 
     .checkbox:checked + .switch {
-    background-color: #2196F3;
+    background-color: #a04f19;
     }
 
     .checkbox:checked + .switch::after {
     transform: translateX(66px);
     }
+
+#cart{
+    display: flex;
+    width: 50px;
+}
+
+#add-button{
+    padding:5px;
+}

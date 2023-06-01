@@ -61,22 +61,6 @@ addButtonEl.addEventListener("click", function() {
     //seems to work
 })
 
-onValue(shoppingListInDB, function(snapshot) {
-    //???????????????????
-    alert(123)
-    if (snapshot.exists()) {
-        let itemsArray = Object.entries(snapshot.val())        
-        clearShoppingListEl()        
-        //
-        for (let i = 0; i < itemsArray.length; i++) {
-            let currentItem = itemsArray[i]              
-            appendItemToShoppingListEl(currentItem)
-        }    
-    } else {
-        shoppingListEl.innerHTML = "Logged In... but no items...yet"
-    }
-})
-
 function clearShoppingListEl() {
     //empty shopping list ul element
     shoppingListEl.innerHTML = ""
