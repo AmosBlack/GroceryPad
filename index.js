@@ -19,6 +19,19 @@ const shoppingListEl = document.getElementById("shopping-list")
 const loginButtonEl = document.getElementById("login-button")
 const userInputEl = document.getElementById("input-user")
 const loginToggle = document.getElementById("toggle")
+const loginTitle = document.getElementById("sign-title")
+
+
+loginToggle.addEventListener("change",function(){
+    if(loginToggle.checked){
+        loginTitle.innerHTML = "Login"
+    }
+    else{
+        loginTitle.innerHTML = "SignUp"
+    }
+})
+
+
 
 //login system 
 loginButtonEl.addEventListener("click", function(){
