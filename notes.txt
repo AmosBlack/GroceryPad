@@ -8,6 +8,7 @@ _/Link succesfully to a git repo and github
 _/Actually commit regularly to repo
 _/Edit element function
 _/UI
+_/Better Auth
 
 
 Limitations

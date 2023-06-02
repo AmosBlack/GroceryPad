@@ -11,3 +11,7 @@
 ## [Hosted on Netlify](https://grocerypad1234.netlify.app/)
 * Uses Firebase Authentication for Signin/Signup functionality.
 * Uses Firebase's Realtime Database to store user's shopping lists.
+## Demo Pictures
+![Demo1](/assets/gp_demo1.png "Authentication")
+![Demo2](/assets/gp_demo2.png "Shopping List")
+
