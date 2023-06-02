@@ -18,7 +18,7 @@ const authorization = getAuth(app)
 
 //db
 let shoppersInDB = ref(database,`users`)
-let shoppingListInDB    
+let shoppingListInDB 
 
 
 
@@ -45,6 +45,7 @@ const divAuthentication = document.getElementById("authentication")
 divShopping.style.display = "none"
 
 //authorization
+let userKey
 
 
 //authentication setup
@@ -87,7 +88,7 @@ const userSignIn = async() => {
     signInWithEmailAndPassword(authorization, signInEmail, signInPassword)
     .then((userCredential) => {
         const user = userCredential.user
-        const userKey = user.uid
+        userKey = user.uid
         // const newElInDB = {
         //     key:userKey,
         //     list:false,
@@ -109,6 +110,9 @@ const checkAuthState = async() => {
         if(user){
             divAuthentication.style.display = "none"
             divShopping.style.display = "flex"
+            userKey = user.uid
+            shoppingListInDB = ref(database, `users/${userKey}`)
+            updateList(shoppingListInDB,userKey)
 
         }
         else{
@@ -171,7 +175,7 @@ function appendItemToShoppingListEl(item,user) {
         inputFieldEl.value = itemValue
         newEl.style.backgroundColor = "#e6c178"
         addButtonEl.addEventListener("click",function(){
-        removeListEl(user,itemID)
+            removeListEl(user,itemID)
         })
         setTimeout(()=>{
             newEl.style.backgroundColor = "#FFFDF8"
