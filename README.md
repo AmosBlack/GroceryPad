@@ -6,7 +6,7 @@
 ## Salient Features
 * Signin/Signup Function with Email and Password
 * List Editing with Add, Update and Delete Functionality
-* 
+  
 ## [Hosted on Netlify](https://grocerypad1234.netlify.app/)
 * Uses Firebase Authentication for Signin/Signup functionality.
 * Uses Firebase's Realtime Database to store user's shopping lists.
