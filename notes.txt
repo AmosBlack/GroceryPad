@@ -1,0 +1,15 @@
+Status: Completed
+
+_/Basic Function                
+_/Login
+_/Implement add user func
+_/Toggle for signin/signup to avoid accidental signups
+_/Link succesfully to a git repo and github
+_/Actually commit regularly to repo
+_/Edit element function
+_/UI
+_/Better Auth
+
+
+Limitations
+-> One list per user
