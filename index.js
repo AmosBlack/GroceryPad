@@ -1,72 +1,136 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js"
-import { getDatabase, ref, push, onValue, remove } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
+import { getDatabase, ref, push, onValue, remove } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-database.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from  "https://www.gstatic.com/firebasejs/9.22.1/firebase-auth.js";
 
 //firebase initialization
 const appSettings = {
-    databaseURL: "https://scrimfirebase-default-rtdb.asia-southeast1.firebasedatabase.app/"
+    apiKey: "AIzaSyCGxok_pQu1JqerndbKE_ZaS_B5D2yiBws",
+    authDomain: "scrimfirebase.firebaseapp.com",
+    databaseURL: "https://scrimfirebase-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "scrimfirebase",
+    storageBucket: "scrimfirebase.appspot.com",
+    messagingSenderId: "630438927668",
+    appId: "1:630438927668:web:330e0d3bc9845a7042d961"
 }   
-const app = initializeApp(appSettings)
+const app = initializeApp(appSettings) 
+const database = getDatabase(app)
+const authorization = getAuth(app)
 
 //db
-const database = getDatabase(app)
+let shoppersInDB = ref(database,`users`)
 let shoppingListInDB    
-let shoppers = ref(database,`users`)
+
+
+
 
 //elements
+
+const inputEmailEl = document.getElementById("user-email")
+const inputPasswordEl = document.getElementById("user-pwd")
+
+const signInButton = document.getElementById("signin-button")
+const signUpButton = document.getElementById("signup-button")
+const signOutButton = document.getElementById("signout-button")
+
 const inputFieldEl = document.getElementById("input-field")
 const addButtonEl = document.getElementById("add-button")
 const shoppingListEl = document.getElementById("shopping-list")
-const loginButtonEl = document.getElementById("login-button")
-const userInputEl = document.getElementById("input-user")
-const loginToggle = document.getElementById("toggle")
-const loginTitle = document.getElementById("sign-title")
 
 
-loginToggle.addEventListener("change",function(){
-    if(loginToggle.checked){
-        loginTitle.innerHTML = "Signin"
-    }
-    else{
-        loginTitle.innerHTML = "Signup"
-    }
-})
+//div elements
+const divShopping = document.getElementById("shopping")
+const divAuthentication = document.getElementById("authentication")
+// hide list el before login
+
+divShopping.style.display = "none"
+
+//authorization
 
 
+//authentication setup
+const userSignUp = async() => {
+    //input data
+    const signUpEmail = inputEmailEl.value
+    const signUpPassword = inputPasswordEl.value
+    //empty form
 
-//login system 
-loginButtonEl.addEventListener("click", function(){
-    //login system input, new db location   
-    let userValue = userInputEl.value
-    let shopperInDB = ref(database,`user/${userValue}`)
-    clearInputFieldEl()
-    //update list value + login function
-    onValue(shopperInDB,function(snapshot){
-        //signin/signup function        
-        if(snapshot.exists()){
-            shoppingListInDB = ref(database,`user/${userValue}`)
-            
+    createUserWithEmailAndPassword(authorization, signUpEmail, signUpPassword)
+    .then((userCredential) => {
+        const user = userCredential.user
+        const userKey = user.uid
+        // const newElInDB = {
+        //     key:userKey,
+        //     list:false,
+        // }
+        shoppingListInDB = ref(database, `users/${userKey}`)
+        updateList(shoppingListInDB,userKey)
+        
+
+
+        
+     
+        
+    })
+    .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        alert(errorCode + errorMessage)
+    })
+
+
+}
+
+const userSignIn = async() => {
+    //input data
+    const signInEmail = inputEmailEl.value
+    const signInPassword = inputPasswordEl.value
+    signInWithEmailAndPassword(authorization, signInEmail, signInPassword)
+    .then((userCredential) => {
+        const user = userCredential.user
+        const userKey = user.uid
+        // const newElInDB = {
+        //     key:userKey,
+        //     list:false,
+        // }
+        shoppingListInDB = ref(database, `users/${userKey}`)
+        updateList(shoppingListInDB,userKey)
+    })
+    .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        alert(errorCode + errorMessage)
+    })
+
+
+}
+
+const checkAuthState = async() => {
+    onAuthStateChanged(authorization,user => {
+        if(user){
+            divAuthentication.style.display = "none"
+            divShopping.style.display = "flex"
+
         }
         else{
-            shoppingListEl.innerHTML = "No items here... yet"
-            if(!loginToggle.checked){
-                shoppingListInDB = ref(database,`user/${userValue}`)
-            }
-            else{
-                alert("Your account doesnt exist")
-            }
+            divAuthentication.style.display = "flex "
+            divShopping.style.display = "none"
         }
-        //store values from shopping list as array
-        let itemsArray = Object.entries(snapshot.val())  
-        //empty shopping list to avoid duplication - each update introduces new values
-        clearShoppingListEl()      
-    
-        for (let i = 0; i < itemsArray.length; i++) {
-            //for each item retrieved from db add to the list
-            let currentItem = itemsArray[i]              
-            appendItemToShoppingListEl(currentItem,userValue)
-        }    
     })
-})
+}
+
+const userSignOut = async() => {
+    await signOut(authorization)
+    emptySignUpForm()
+}   
+
+//trigger signup
+checkAuthState();
+
+signUpButton.addEventListener("click", userSignUp)
+signInButton.addEventListener("click",userSignIn)
+signOutButton.addEventListener("click",userSignOut)
+
+
 
 addButtonEl.addEventListener("click", function() {
     //push input item to db
@@ -98,6 +162,8 @@ function appendItemToShoppingListEl(item,user) {
     //onclick remove item from shopping list
     newEl.addEventListener("dblclick", function() {
         removeListEl(user,itemID)
+        inputFieldEl.value = ""
+
 
     })
     newEl.addEventListener("click", function(){
@@ -118,12 +184,37 @@ function appendItemToShoppingListEl(item,user) {
     shoppingListEl.append(newEl)
 }
 
-function checkLoginSignup(logToggle){
-    // true means signin false means signup
-    return logToggle.checked
+function removeListEl(user,id){
+    let exactLocationOfItemInDB = ref(database, `users/${user}/${id}`)        
+    remove(exactLocationOfItemInDB)
 }
 
-function removeListEl(user,id){
-    let exactLocationOfItemInDB = ref(database, `user/${user}/${id}`)        
-    remove(exactLocationOfItemInDB)
+function updateList(shopping,key){
+    clearInputFieldEl()
+        //update list value + login function
+        
+        onValue(shopping,function(snapshot){     
+            if(snapshot.exists()){
+
+            //store values from shopping list as array
+            let itemsArray = Object.entries(snapshot.val())  
+            //empty shopping list to avoid duplication - each update introduces new values
+            clearShoppingListEl()      
+        
+            for (let i = 0; i < itemsArray.length; i++) {
+                //for each item retrieved from db add to the list
+                let currentItem = itemsArray[i]              
+                appendItemToShoppingListEl(currentItem,key)
+            }    
+            }
+            else{
+                shoppingListEl.innerHTML = "No Items here yet...."
+            }
+        
+        })
+}
+
+function emptySignUpForm(){
+    inputEmailEl.value = ""
+    inputPasswordEl.value = ""
 }

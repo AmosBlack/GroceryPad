@@ -176,3 +176,16 @@ h2{
 #add-button{
     padding:5px;
 }
+
+.credential-button{
+    justify-content: center;
+    margin-bottom: 10px;
+    padding:10px;
+
+}
+
+#authentication, #shopping{
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+}

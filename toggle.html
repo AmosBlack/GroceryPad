@@ -1,61 +1,134 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta name="viewport" content="width=s, initial-scale=1.0">
+    <title>Signin</title>
+   
     <style>
-        .toggle-switch {
-        margin:0px auto;
-        position: relative;
-        display: flex;
-        width: 100px;
-        height: 34px;
-        }
-
-        .switch {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: #ccc;
-        border-radius: 34px;
-        cursor: pointer;
-        transition: background-color 0.1s;
-        }
-
-        .switch::after {
-        content: "";
-        position: absolute;
-        width: 26px;
-        height: 26px;
-        background-color: white;
-        border-radius: 50%;
-        top: 4px;
-        left: 4px;
-        transition: transform 0.1s;
-        }
-
-        .checkbox {
-        display: none;
-        }
-
-        .checkbox:checked + .switch {
-        background-color: #2196F3;
-        }
-
-        .checkbox:checked + .switch::after {
-        transform: translateX(66px);
+        body{
+            background-color: #000000;
+            color: aliceblue;
+            text-align: center;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
         }
 
     </style>
+
 </head>
 <body>
-    <div class="toggle-switch">
-        <input type="checkbox" id="toggle" class="checkbox">
-        <label for="toggle" class="switch"></label>
-      </div>
+    <div id="authForm">
+        <h1>Signup/Signin</h1>
+        <input type="email" placeholder="email" id="userEmail">
+        <input type="password" placeholder="pwd" id="userPassword">
+        <br><br>
+        <button id="signUpButton">Signup</button>
+        <button id="signInButton">Signin</button>
+
+    </div>
+    <div id="secretContent">
+        <h3>Top Secret Information</h3>
+        <h1>VIBE o/</h1>
+        <button id="signOutButton">Signout</button>
+    </div>
+
+
+    <script type="module">
+     
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut} from  "https://www.gstatic.com/firebasejs/9.17.1/firebase-auth.js";
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+          apiKey: "AIzaSyCIprRCfztasd5ohs1MDiHGZQzj5wxH5pI",
+          authDomain: "fireauth-d1b77.firebaseapp.com",
+          projectId: "fireauth-d1b77",
+          storageBucket: "fireauth-d1b77.appspot.com",
+          messagingSenderId: "354496201745",
+          appId: "1:354496201745:web:681a979a4d3e6838e51db0"
+        };
       
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app)       
+      
+        //elements
+        const userEmail = document.getElementById("userEmail")
+        const userPassword = document.getElementById("userPassword");
+        const authForm = document.getElementById("authForm");
+        const secretContent = document.getElementById("secretContent");
+        const signUpButton = document.getElementById("signUpButton");
+        const signInButton = document.getElementById("signInButton");
+        const signOutButton = document.getElementById("signOutButton");
+        
+        secretContent.style.display = "none"
+
+        const userSignUp = async() => {
+            //input data
+            const signUpEmail = userEmail.value
+            const signUpPassword = userPassword.value
+
+            createUserWithEmailAndPassword(auth, signUpEmail, signUpPassword)
+            .then((userCredential) => {
+                const user = userCredential.user
+                console.log(user)
+                alert("Your account has been created")
+            })
+            .catch((error) => {
+                const errorCode = errror.code;
+                const errorMessage = error.message;
+                alert(errorCode + errorMessage)
+            })
+
+
+        }
+
+        const userSignIn = async() => {
+            //input data
+            const signInEmail = userEmail.value
+            const signInPassword = userPassword.value
+
+            signInWithEmailAndPassword(auth, signInEmail, signInPassword)
+            .then((userCredential) => {
+                const user = userCredential.user
+                console.log(user)
+                alert("You have signed in successfully!")
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                alert(errorCode + errorMessage)
+            })
+
+
+        }
+
+        const checkAuthState = async() => {
+            onAuthStateChanged(auth,user => {
+                if(user){
+                    authForm.style.display = "none"
+                    secretContent.style.display = "block"
+
+                }
+                else{
+                    authForm.style.display = "block "
+                    secretContent.style.display = "none"
+                }
+            })
+        }
+
+        const userSignOut = async() => {
+            await signOut(auth)
+        }   
+
+        //trigger signup
+        checkAuthState();
+
+        signUpButton.addEventListener("click", userSignUp)
+        signInButton.addEventListener("click",userSignIn)
+        signOutButton.addEventListener("click",userSignOut)
+
+      </script>
 </body>
 </html>
