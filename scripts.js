@@ -102,7 +102,7 @@ const userSignOut = async() => {
     emptyAuthForm()
 }   
 
-//trigger signup
+//check login
 checkAuthState();
 
 signUpButton.addEventListener("click", userSignUp)
@@ -204,10 +204,9 @@ function emptyAuthForm(){
 //handle errors in auth
 function handleAuthError(error){
     //alert errors
-    const errorCode = error.code;
-    const errorMessage = error.message;
+    const errorMessage = error.message.split(" ").slice(-2).join(" ")
     emptyAuthForm()
-    alert(errorCode + errorMessage)
+    alert(errorMessage)
 }
 
 //create/setup list in database
