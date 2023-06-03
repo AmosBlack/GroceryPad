@@ -24,11 +24,11 @@ html, body {
 
 
 
-h1, h2{
+h1, h2, h3{
     margin: 0px auto;
     transition:ease-in-out  0.2s;
     padding: 5px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     text-align: center;
 
 }
@@ -37,7 +37,13 @@ h1{
     font-size: 3em;
 }
 
-h1:hover,h2:hover{
+h3{
+    color: #b83a14;
+    font-weight: 800;
+    font-size: 1.5em;
+}
+
+h1:hover,h2:hover,h3:hover{
     cursor: pointer;
     text-shadow: 
     0 2px 4px rgba(0, 0, 0, 0.1),

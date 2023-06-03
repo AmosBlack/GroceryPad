@@ -35,6 +35,8 @@ const inputFieldEl = document.getElementById("input-field")
 const addButtonEl = document.getElementById("add-button")
 const shoppingListEl = document.getElementById("shopping-list")
 
+const userNameEl = document.getElementById("user-view")
+
 //div elements
 const divShopping = document.getElementById("shopping")
 const divAuthentication = document.getElementById("authentication")
@@ -83,6 +85,7 @@ const checkAuthState = async() => {
             //if logged in show shopping list
             divAuthentication.style.display = "none"
             divShopping.style.display = "flex"
+            userNameView(user.email)
             userKey = user.uid
             shoppingListInDB = ref(database, `users/${userKey}`)
             updateList(shoppingListInDB,userKey)
@@ -209,6 +212,12 @@ function handleAuthError(error){
     alert(errorMessage)
 }
 
+function userNameView(ign){
+    var userName = ign.split("@")[0] + "groceryLtd."
+    userNameEl.innerHTML = userName
+}
+
+
 //create/setup list in database
 function setUpListInDB(userCredential){
     const user = userCredential.user
@@ -216,4 +225,5 @@ function setUpListInDB(userCredential){
     //update shopping list
     shoppingListInDB = ref(database, `users/${userKey}`)
     updateList(shoppingListInDB,userKey)
+
 }
