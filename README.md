@@ -1,5 +1,5 @@
 # Grocery Pad
-[![Website shields.io](https://img.shields.io/website-up-down-green-red/http/shields.io.svg)](https://grocerypad1234.netlify.app/) [![PyPi license](https://badgen.net/pypi/license/pip/)](https://pypi.org/project/pip/)  ![Firebase](https://img.shields.io/badge/made%20with-firebase-yellow) [![Netlify Status](https://api.netlify.com/api/v1/badges/8cabd188-729f-4ea5-b5bc-6716dd2ceca4/deploy-status)](https://app.netlify.com/sites/grocerypad1234/deploys) [![JavaScript](https://img.shields.io/badge/--F7DF1E?logo=javascript&logoColor=000)](https://www.javascript.com/)
+[![Website shields.io](https://img.shields.io/website-up-down-green-red/http/shields.io.svg)](https://grocerypad1234.netlify.app/) [![PyPi license](https://badgen.net/pypi/license/pip/)](https://pypi.org/project/pip/)  ![Firebase](https://img.shields.io/badge/made%20with-firebase-yellow) [![Netlify Status](https://api.netlify.com/api/v1/badges/8cabd188-729f-4ea5-b5bc-6716dd2ceca4/deploy-status)](https://grocerypad1234.netlify.app/) [![JavaScript](https://img.shields.io/badge/--F7DF1E?logo=javascript&logoColor=000)](https://www.javascript.com/)
 
 ### Shopping list webapp built using Firebase's Realtime Database and Authentication
 
